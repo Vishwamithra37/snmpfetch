@@ -1,4 +1,3 @@
-#! C:\Users\mithr\AppData\Local\Programs\Python\Python39\python.exe
 #!/usr/bin/env python3
 
 #This code is typed and owned By Vishwa Mithra Tatta for the assignment 3 of the subject ET-2598
@@ -8,6 +7,8 @@
 import sys
 import time
 from puresnmp import get
+import puresnmp.transport
+import threading
 
 #####Please download the above packages if not available#####
 #####Initializing########
@@ -61,15 +62,98 @@ def ti1():                                                #Returns Time in unix 
  return round(time.time())
 
 #########END of Time function#####################
+#########Start of rate calculation################
+
+def rato11(a,b,dt1,dt2):
+ ra=(b-a)/(dt2-dt1)
+ return ra
+ 
+def rate12(a,b,t1,t2):
+ ra=(b-a)/(t2-t1) 
+ return ra
+
+
+###########End of Rate Calculation################
 #########Start of Fetching   ################   
 
+def fletcher(oi): 
+ 
+               result = get(agip, com, oi, port=po)
+               value=result
+               ti4=ti1()                                #Time of recieving the value
+               print(ti4)
+               n=n+1                                    #Controller variable from dummy
+               if n==3:
+                n=n-2
+                
+               if n==1:
+                   ti2=ti4
+                   a=value   
+                 
+               if n==1 and troll!=1:
+                   ti2=ti4
+                   a=value
+                   fin=rate12(a,b,t12,t13)
+                   print(fin, end=" | ")
+                   
+               if n==2:
+                   ti3=ti4
+                   b=value
+                   fin=rate12(a,b,ti2,ti3)
+                   print(fin, end=" | ")
+               
+              
+def fletcher2(oi): 
+ 
+               result = get(agip, com, oi, port=po)
+               print(result, end = " | ")
+               
+           
+              
 
-print(ti1(),end=" | ")
 
 
-for oi in oids:
-  result = get(agip, com, oi, port=po)
-  print(result, end=" | ")
+
+
+###################End of fetching   ###################
+###################Start of threading################
+
+puresnmp.transport.BUFFER_SIZE = 4096
+puresnmp.transport.RETRIES = 1
+n=0      #Dummy variable
+troll=1
+ball=1
+for cou in range(nsamp):
+     print('\n')
+     time.sleep(tp)
+     print(ti1(),end=" | ")
+
+
+     for apple in oids:
+      if ball==1:
+       f1=threading.Thread(target=fletcher2(apple))
+       f1.daemon=True
+       f1.start() 
+      else:
+       f1=threading.Thread(target=fletcher(apple))
+       f1.daemon=True
+       f1.start() 
+      
+     ball=2
+     time.sleep(tp)     
+
+
+
+
+
+
+
+
+
+     
+  
+   
+ 
       
     
     
