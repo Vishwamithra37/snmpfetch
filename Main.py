@@ -124,6 +124,8 @@ n=0      #Dummy variable
 troll=1
 ball=1
 for cou in range(nsamp):
+     
+     
      print('\n')
      time.sleep(tp)
      print(ti1(),end=" | ")
@@ -138,7 +140,8 @@ for cou in range(nsamp):
        f1=threading.Thread(target=fletcher(apple))
        f1.daemon=True
        f1.start() 
-      
+     
+     print('\n\n')       
      ball=2
      time.sleep(tp)     
 
