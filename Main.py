@@ -3,12 +3,16 @@
 
 #This code is typed and owned By Vishwa Mithra Tatta for the assignment 3 of the subject ET-2598
 
+#Modules Required
+
 import sys
+import time
 from puresnmp import get
 
 #####Please download the above packages if not available#####
 #####Initializing########
-
+print("\n\n")
+print("Input data check:\n")
 dum=0 #Dummy variable
 nargs=(len(sys.argv))#This is the number of input arguments
 print('Total number of arguments:',format(len(sys.argv)))
@@ -45,12 +49,28 @@ for b in range(4,nargs):
  dum=dum+1
  print("Number of OIDs given:", dum)
 
+
 oids = oids[:-1]
-print(oids)
-    
+print(oids,"\n\n\n\n")
+
+
+#########END OF TAKING INPUTS ##################
+#########     Time-Giver      #####################
+
+def ti1():                                                #Returns Time in unix units
+ return round(time.time())
+
+#########END of Time function#####################
+#########Start of Fetching   ################   
+
+
+print(ti1(),end=" | ")
+
+
 for oi in oids:
   result = get(agip, com, oi, port=po)
-  print(result)    
+  print(result, end=" | ")
+      
     
     
     
