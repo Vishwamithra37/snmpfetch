@@ -83,29 +83,36 @@ def rate12(a,b,t1,t2):         #########If it doesn't work and we need to use ou
 #########Start of Fetching   ################   
 
 def fletcher(oi,cou): 
- 
-               result = get(agip, com, oi, port=po)
-               value=result
-               ti4=ti1()                                #Time of recieving the value
-               currtime=ti4
-               
-               gloval[cou][oi]=result
-               glotime[cou][oi]=currtime
-               
-               glorate[cou][oi]=rate12(gloval[cou-1][oi],gloval[cou][oi],glotime[cou-1][oi],glotime[cou][oi]) #####The magic piece#####
-               print(glorate[cou][oi], end=" | ")
+              while True:
+               try: 
+                   result = get(agip, com, oi, port=po)
+                   value=result
+                   ti4=ti1()                                #Time of recieving the value
+                   currtime=ti4
+                   
+                   gloval[cou][oi]=result
+                   glotime[cou][oi]=currtime
+                   
+                   glorate[cou][oi]=rate12(gloval[cou-1][oi],gloval[cou][oi],glotime[cou-1][oi],glotime[cou][oi]) #####The magic piece#####
+                   print(glorate[cou][oi], end=" | ")
+                   break
+               except:
+                   fletcher(oi,cou)               
                    
                
               
 def fletcher2(oi,cou): 
- 
-               result = get(agip, com, oi, port=po)
-               print(result, end = " | ")
-               currtime=ti1()
-               
-               gloval[cou][oi]=result
-               glotime[cou][oi]=currtime
-               
+               while True:
+                 try: 
+                   result = get(agip, com, oi, port=po)
+                   print(result, end = " | ")
+                   currtime=ti1()
+                   
+                   gloval[cou][oi]=result
+                   glotime[cou][oi]=currtime
+                   break
+                 except:
+                   fletcher2(oi,cou)                 
                
            
               
