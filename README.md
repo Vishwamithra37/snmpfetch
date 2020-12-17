@@ -1,5 +1,5 @@
 # snmpfetch
-mo2.py is the real bomb des
+Mojojojo is the real bomb des
 
 
 ################################### Extending SNMP Agent #########################################
